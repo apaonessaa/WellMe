@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/startActivity_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apri Focus Activity" />
+
+    <!-- Sezione stato d'animo -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/teal_200"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stato d'animo"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btnAnnota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Annota"/>
+    </LinearLayout>
+
+</LinearLayout>

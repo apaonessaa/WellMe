@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MoodActivity">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Annota un'emozione o il tuo umore"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/moodToggleGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:singleSelection="true"
+        android:orientation="vertical" >
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/moodBtn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descrivi questo momento"
+            android:padding="8dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/moodBtn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descrivi questo giorno"
+            android:padding="8dp"/>
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <TextView
+        android:id="@+id/moodTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleziona un'opzione"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+
+    <SeekBar
+        android:id="@+id/moodSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="6" />
+
+    <TextView
+        android:id="@+id/moodLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Neutro"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cosa descrive meglio ciò che provi?"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/emotionChipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:singleSelection="false" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btnAnnota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Annota"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>

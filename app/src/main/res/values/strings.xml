@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">WellMe</string>
+    <string name="start_button">Start</string>
+    <string name="pause_button">Pause</string>
+    <string name="stop_button">Stop</string>
+    <string name="time_title">Time</string>
+    <string name="time_string">%d s</string>
+    <string name="distance_title">Distance</string>
+    <string name="distance_string">%.2f km</string>
+    <string name="steps_title">Steps</string>
+    <string name="steps_string">%d</string>
+    <string name="title_activity_main">WellMe</string>
+    <string name="title_activity_focus">FocusActivity</string>
+    <string name="title_activity_mood">MoodActivity</string>
+    <string name="steps_access_granted">Steps Access Granted</string>
+    <string name="steps_access_denied">Steps Access Denied</string>
+    <string name="localization_access_granted">Localization Access Granted</string>
+    <string name="localization_access_denied">Localization Access Denied</string>
+    <string name="sensor_not_available">Sensor Not Available</string>
+    <string name="localization_disabled">Localization Disabled</string>
+</resources>
