@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Sezione: Stato d'animo
-        // Intent to MoodActivity
         val btnAnnota = findViewById<Button>(R.id.btnAnnota)
         btnAnnota.setOnClickListener {
             val intent = Intent(this, MoodActivity::class.java)
