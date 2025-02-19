@@ -5,6 +5,9 @@ import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.wellme.storage.WellMeViewModel
+import com.example.wellme.storage.entities.MoodStat
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.chip.Chip
@@ -49,6 +52,8 @@ class MoodActivity : AppCompatActivity() {
         "Lavoro", "Istruzione", "Viaggi", "Meteo", "Eventi di attualità", "Denaro"
     )
 
+    private lateinit var wellMeViewModel: WellMeViewModel
+
     private fun getCurrentTime(): String {
         return SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
     }
@@ -60,7 +65,10 @@ class MoodActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mood)
+        // DB
+        wellMeViewModel = ViewModelProvider(this)[WellMeViewModel::class.java]
 
+        //
         val moodToggleGroup = findViewById<MaterialButtonToggleGroup>(R.id.moodToggleGroup)
         val moodBtn1 = findViewById<MaterialButton>(R.id.moodBtn1)
         val moodBtn2 = findViewById<MaterialButton>(R.id.moodBtn2)
@@ -113,7 +121,13 @@ class MoodActivity : AppCompatActivity() {
 
         // Button Save
         save.setOnClickListener {
-            println("Mood:"+ moodLabel.text)
+            val stat = MoodStat(0, date = getCurrentDate(), hour = getCurrentTime(), mood = "ciao",
+                detail = "detail", cause = "cause", note = "note")
+            wellMeViewModel.insertMoodStat(stat)
+
+            println(
+                wellMeViewModel.getAllMoodStat()
+            )
         }
     }
 
