@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Button
 
 class HomeFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
