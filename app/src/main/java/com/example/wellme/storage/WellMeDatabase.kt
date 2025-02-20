@@ -9,7 +9,6 @@ import com.example.wellme.storage.dao.MoodStatDao
 import com.example.wellme.storage.entities.ActivityStat
 import com.example.wellme.storage.entities.MoodStat
 
-
 @Database(entities = [MoodStat::class, ActivityStat::class], version = 1)
 abstract class WellMeDatabase:RoomDatabase() {
     abstract fun moodStatDao() : MoodStatDao

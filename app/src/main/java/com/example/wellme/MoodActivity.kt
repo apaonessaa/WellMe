@@ -2,11 +2,13 @@ package com.example.wellme;
 
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.wellme.storage.WellMeDatabase
 import com.example.wellme.storage.dao.MoodStatDao
 import com.example.wellme.storage.entities.MoodStat
@@ -14,6 +16,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -124,17 +128,21 @@ class MoodActivity : AppCompatActivity() {
 
         // Button Save
         save.setOnClickListener {
-            storage.moodStatDao().insertAll(
-                MoodStat(
-                    id = 1213232131,
-                    date = getCurrentDate(), hour = getCurrentTime(),
-                    mood = "ciao", detail = "detail", cause = "cause", note = "note"
+            lifecycleScope.launch(Dispatchers.IO) {
+                storage.moodStatDao().insertAll(
+                    MoodStat(
+                        date = getCurrentDate(),
+                        hour = getCurrentTime(),
+                        mood = "ciao",
+                        detail = "detail",
+                        cause = "cause",
+                        note = "note"
+                    )
                 )
-            )
 
-            println(
-                storage.moodStatDao().getAll()
-            )
+                val allMoods = storage.moodStatDao().getAll()
+                Log.d("MoodActivity", "Saved Mood Entries: $allMoods")
+            }
         }
     }
 
