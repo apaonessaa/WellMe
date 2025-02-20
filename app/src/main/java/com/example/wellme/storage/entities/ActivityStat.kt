@@ -1,5 +1,6 @@
 package com.example.wellme.storage.entities
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -16,13 +17,13 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "activity_stat")
 data class ActivityStat (
-    @PrimaryKey(autoGenerate = true) val id:Int = 0,
-    val type:String,
-    val date:String,
-    val duration:Int,
-    val distance:Double,
-    val steps:Int,
-    val day:Int,
-    val latitude:Double,
-    val longitude:Double
+    @PrimaryKey(autoGenerate = true)    val id:Int = 0,
+    @ColumnInfo(name = "type")      val type:String,
+    @ColumnInfo(name = "date")      val date:String,
+    @ColumnInfo(name = "duration")  val duration:Int,
+    @ColumnInfo(name = "distance")  val distance:Double?,
+    @ColumnInfo(name = "steps")     val steps:Int?,
+    @ColumnInfo(name = "day")       val day:Int,
+    @ColumnInfo(name = "latitude")  val latitude:Double,
+    @ColumnInfo(name = "longitude") val longitude:Double
 )

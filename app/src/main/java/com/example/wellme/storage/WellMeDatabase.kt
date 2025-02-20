@@ -10,10 +10,11 @@ import com.example.wellme.storage.entities.ActivityStat
 import com.example.wellme.storage.entities.MoodStat
 
 
-@Database(entities = [MoodStat::class,ActivityStat::class], version = 1, exportSchema = false)
+@Database(entities = [MoodStat::class, ActivityStat::class], version = 1)
 abstract class WellMeDatabase:RoomDatabase() {
-    abstract fun activityStatDao() : ActivityStatDao
     abstract fun moodStatDao() : MoodStatDao
+    abstract fun activityStatDao() : ActivityStatDao
+
     companion object {
         @Volatile
         private var INSTANCE: WellMeDatabase ?= null
@@ -22,11 +23,10 @@ abstract class WellMeDatabase:RoomDatabase() {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    WellMeDatabase::class.java,
-                    "wellme_db"
+                    WellMeDatabase::class.java, "wellme_db"
                 ).build()
                 INSTANCE = instance
-                instance
+                return instance
             }
         }
     }
