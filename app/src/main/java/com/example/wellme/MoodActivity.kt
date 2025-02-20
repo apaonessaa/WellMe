@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.wellme.storage.WellMeDatabase
@@ -18,8 +19,7 @@ import kotlinx.coroutines.launch
 
 import com.example.wellme.utils.MoodData
 import com.example.wellme.utils.TimeData
-
-enum class Moment { UNKNOWN, NOW, TODAY }
+import kotlinx.coroutines.withContext
 
 class MoodActivity : AppCompatActivity() {
 
@@ -28,13 +28,12 @@ class MoodActivity : AppCompatActivity() {
     private val details = MoodData.details
     private val causes = MoodData.causes
 
-    //
-    private var moodMoment = Moment.UNKNOWN
-
     // Selection
     private var stateSelected: String
     private var detailsSelected: MutableList<String>
     private var causesSelected: MutableList<String>
+    private var dateSelected: String?
+    private var hourSelected: String?
 
     // DB reference
     private lateinit var storage: WellMeDatabase
@@ -43,6 +42,8 @@ class MoodActivity : AppCompatActivity() {
         stateSelected = states[MoodData.DEFAULT_STATE]
         detailsSelected = mutableListOf()
         causesSelected = mutableListOf()
+        dateSelected = null
+        hourSelected = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,33 +52,44 @@ class MoodActivity : AppCompatActivity() {
 
         storage = WellMeDatabase.getDatabase(this)
 
-        val timeGroup = findViewById<MaterialButtonToggleGroup>(R.id.moodToggleGroup)
-        val now = findViewById<MaterialButton>(R.id.moodBtn1)
-        val today = findViewById<MaterialButton>(R.id.moodBtn2)
-        val seekBar = findViewById<SeekBar>(R.id.moodSeekBar)
-        val seekLabel = findViewById<TextView>(R.id.moodLabel)
-        val detailsChipGroup = findViewById<ChipGroup>(R.id.emotionChipGroup)
-        val causesChipGroup = findViewById<ChipGroup>(R.id.contextChipGroup)
-        val save = findViewById<Button>(R.id.btnAnnota)
+        val timeGroup = findViewById<MaterialButtonToggleGroup>(R.id.groupTime)
+        val today = findViewById<MaterialButton>(R.id.todayTime)
+        val now = findViewById<MaterialButton>(R.id.nowTime)
+        val seekBar = findViewById<SeekBar>(R.id.seekBar)
+        val seekLabel = findViewById<TextView>(R.id.seekLabel)
+        val detailsChipGroup = findViewById<ChipGroup>(R.id.detailGroup)
+        val causesChipGroup = findViewById<ChipGroup>(R.id.causesGroup)
+        val save = findViewById<Button>(R.id.saveBtn)
 
         // Time selection
+        today.text=
+            StringBuilder()
+                .append("Describe today.")
+                .toString()
+
+        now.text=
+            StringBuilder()
+                .append("Describe this moment.")
+                .toString()
+
         timeGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
                 when (checkedId) {
-                    // TODO UI view
-                    R.id.moodBtn1 -> {
-                        now.text=
-                            StringBuilder()
-                                .append("Descrivi questo momento\n")
-                                .append(TimeData.getCurrentTime()).toString()
-                        moodMoment = Moment.NOW
-                    }
-                    R.id.moodBtn2 -> {
+                    R.id.todayTime -> {
+                        dateSelected = TimeData.getCurrentDate()
+                        hourSelected = null
                         today.text=
                             StringBuilder()
-                                .append("Descrivi questo giorno\n")
-                                .append(TimeData.getCurrentDate()).toString()
-                        moodMoment = Moment.TODAY
+                                .append("Describe today.")
+                                .toString()
+                    }
+                    R.id.nowTime -> {
+                        dateSelected = TimeData.getCurrentDate()
+                        hourSelected = TimeData.getCurrentTime()
+                        now.text=
+                            StringBuilder()
+                                .append("Describe this moment.\n")
+                                .append(hourSelected).toString()
                     }
                 }
             }
@@ -90,34 +102,42 @@ class MoodActivity : AppCompatActivity() {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 seekLabel.text = states[progress]
                 updateState(states[progress])
-                updateDetails(detailsChipGroup)
+                details[stateSelected]?.let { viewChips(it, detailsSelected, detailsChipGroup) }
             }
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
         // ChipGroup
-        updateDetails(detailsChipGroup)
-
-        // ChipGroup
-        updateCauses(causesChipGroup)
+        details[stateSelected]?.let { viewChips(it, detailsSelected, detailsChipGroup) }
+        viewChips(causes, causesSelected, causesChipGroup)
 
         // Button Save
         save.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                storage.moodStatDao().insertAll(
-                    MoodStat(
-                        date = TimeData.getCurrentDate(),
-                        hour = TimeData.getCurrentTime(),
-                        mood = stateSelected,
-                        detail = detailsSelected.toString(),
-                        cause = causesSelected.toString(),
-                        note = "note"
+                if (dateSelected!=null) {
+                    storage.moodStatDao().insertAll(
+                        MoodStat(
+                            date = dateSelected!!,
+                            hour = hourSelected,
+                            mood = stateSelected,
+                            detail = detailsSelected.toString(),
+                            cause = causesSelected.toString(),
+                            note = "note"
+                        )
                     )
-                )
-
-                val allMoods = storage.moodStatDao().getAll()
-                Log.d("MoodActivity", "Saved Mood Entries: $allMoods")
+                    val allMoods = storage.moodStatDao().getAll()
+                    Log.d("MoodActivity", "Saved Mood Entries: $allMoods")
+                } else {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            this@MoodActivity,
+                            "È necessario scegliere una data",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    Log.d("Error@MoodActivity", "Saving Mood Entries, but the date is $dateSelected")
+                }
             }
         }
     }
@@ -128,29 +148,41 @@ class MoodActivity : AppCompatActivity() {
         causesSelected.clear()
     }
 
-    private fun updateDetails(chipGroup: ChipGroup) {
+    private fun viewChips(target: List<String>, selected: MutableList<String>, chipGroup: ChipGroup) {
         chipGroup.removeAllViews()
-        details[stateSelected]!!.forEach { detail ->
-            // Update Chip Group
-            chipGroup.addView(
-                Chip(this).apply {
-                    text = detail
-                    isCheckable = true
-                })
-            // Update Selection
-            detailsSelected.add(detail)
-        }
-    }
-
-    private fun updateCauses(chipGroup: ChipGroup) {
-        chipGroup.removeAllViews()
-        causes.forEach { cause ->
-            // Update Chip Group
-            chipGroup.addView(
-                Chip(this).apply {
-                text = cause
+        target.forEach { detail ->
+            // Define Chip
+            val chip = Chip(this).apply {
+                text = detail
                 isCheckable = true
-            })
+                isChecked = false
+                chipIcon = null
+                isChipIconVisible = false
+                isCloseIconVisible = false
+                checkedIcon = null
+            }
+            // Default Style
+            chip.setChipBackgroundColorResource(android.R.color.darker_gray)
+            chip.setChipStrokeColorResource(android.R.color.darker_gray)
+            chip.chipStrokeWidth = 4f
+            // On Change, update selected list and style
+            chip.setOnCheckedChangeListener { _, isChecked ->
+                when (isChecked) {
+                    true -> {
+                        selected.add(detail)
+                        chip.setChipBackgroundColorResource(android.R.color.white)
+                        chip.setChipStrokeColorResource(android.R.color.holo_orange_dark)
+                    }
+
+                    else -> {
+                        selected.remove(detail)
+                        chip.setChipBackgroundColorResource(android.R.color.darker_gray)
+                        chip.setChipStrokeColorResource(android.R.color.darker_gray)
+                    }
+                }
+            }
+            // Append Chip
+            chipGroup.addView(chip)
         }
     }
 }

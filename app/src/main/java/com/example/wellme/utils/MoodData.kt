@@ -8,7 +8,7 @@ object MoodData {
 
     val DEFAULT_STATE = 3
 
-    val states = arrayOf(
+    val states = listOf(
         "Molto Spiacevole",
         "Spiacevole",
         "Leggermente Spiacevole",
@@ -32,7 +32,7 @@ object MoodData {
         "Molto Piacevole" to listOf("Euforia", "Felicità", "Amore", "Gratitudine")
     )
 
-    val causes = arrayOf(
+    val causes = listOf(
         "Salute", "Attività Fisica", "Cura personale", "Hobby", "Identità", "Spiritualità",
         "Vita sociale", "Famiglia", "Amicizie", "Partner", "Vita sentimentale", "Impegni",
         "Lavoro", "Istruzione", "Viaggi", "Meteo", "Eventi di attualità", "Denaro"

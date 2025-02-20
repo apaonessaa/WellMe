@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
-        tools:context=".MoodActivity">
+        tools:context=".MoodActivity"
+        tools:ignore="ScrollViewSize">
 
         <Space
             android:layout_width="match_parent"
@@ -23,36 +23,49 @@
             android:textSize="18sp"
             android:textStyle="bold"/>
 
+        <!-- Time -->
         <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/moodToggleGroup"
+            android:id="@+id/groupTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:singleSelection="true"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            app:selectionRequired="true"
+            app:singleSelection="true">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/moodBtn1"
+                android:id="@+id/todayTime"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descrivi questo momento"
-                android:padding="8dp"/>
+                android:minHeight="0dp"
+                android:lines="2"
+                android:ellipsize="none"
+                android:paddingVertical="12dp"
+                android:gravity="center"/>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/moodBtn2"
+                android:id="@+id/nowTime"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descrivi questo giorno"
-                android:padding="8dp"/>
+                android:minHeight="0dp"
+                android:lines="2"
+                android:ellipsize="none"
+                android:paddingVertical="12dp"
+                android:gravity="center" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
+        <!-- Seek Bar -->
         <SeekBar
-            android:id="@+id/moodSeekBar"
+            android:id="@+id/seekBar"
+            style="@style/WMSeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="6" />
+            android:max="6"
+            android:thumbOffset="0dp"/>
 
         <TextView
-            android:id="@+id/moodLabel"
+            android:id="@+id/seekLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Neutro"
@@ -69,7 +82,7 @@
             android:layout_marginTop="16dp" />
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/emotionChipGroup"
+            android:id="@+id/detailGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -83,8 +96,9 @@
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
 
+
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/contextChipGroup"
+            android:id="@+id/causesGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -96,7 +110,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/btnAnnota"
+            android:id="@+id/saveBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Annota"
