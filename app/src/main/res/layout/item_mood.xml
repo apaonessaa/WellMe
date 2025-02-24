@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFEB3B"
+    android:backgroundTint="#F6F3F4"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/moodName"
+        android:layout_width="141dp"
+        android:layout_height="61dp"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:clickable="false"
+        android:text="First Mood"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+</LinearLayout>

@@ -15,9 +15,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Apri Focus Activity"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:text="Apri Focus Activity"/>
 
         <Button
             android:id="@+id/startActivity_button"
@@ -36,9 +36,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stato d'animo"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:text="Stato d'animo"/>
 
         <Button
             android:id="@+id/btnAnnota"

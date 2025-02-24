@@ -36,5 +36,11 @@
             android:label="@string/title_activity_mood"
             android:theme="@style/Theme.WellMe">
         </activity>
+        <activity
+            android:name=".ViewItemActivity"
+            android:exported="false"
+            android:label="@string/title_activity_mood"
+            android:theme="@style/Theme.WellMe">
+        </activity>
     </application>
 </manifest>

@@ -1,5 +1,6 @@
 package com.example.wellme
 
+import StatsFragment
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener { item ->
             val selectedFragment = when (item.itemId) {
                 R.id.nav_home -> HomeFragment()
-                //R.id.nav_activity -> ActivityFragment()
+                R.id.nav_stats -> StatsFragment()
                 //R.id.nav_profile -> ProfileFragment()
                 else -> null
             }

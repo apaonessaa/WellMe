@@ -1,5 +1,6 @@
 package com.example.wellme.storage.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -11,5 +12,11 @@ interface MoodStatDao {
     fun getAll(): List<MoodStat>
 
     @Insert
-    fun insertAll(vararg stats: MoodStat)
+    suspend fun insertAll(vararg stats: MoodStat)
+
+    @Query("SELECT * FROM mood_stat")
+    fun getAllEmotions(): LiveData<List<MoodStat>>
+
+    @Query("SELECT * FROM mood_stat WHERE id = :id")
+    fun getEmotionById(id: Int): LiveData<MoodStat>
 }
