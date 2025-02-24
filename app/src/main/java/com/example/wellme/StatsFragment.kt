@@ -1,10 +1,8 @@
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wellme.R
@@ -14,7 +12,6 @@ import com.example.wellme.storage.viewmodel.ActivityViewModel
 import com.example.wellme.storage.viewmodel.MoodViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.wellme.ViewItemActivity
 
 class StatsFragment : Fragment() {
     private val tag = "StatsFragment"
