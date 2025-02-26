@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Annota un'emozione o il tuo umore"
+            android:text="@string/mood_activity_1"
             android:textSize="18sp"
             android:textStyle="bold"/>
 
@@ -68,7 +68,6 @@
             android:id="@+id/seekLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Neutro"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_gravity="center"/>
@@ -76,7 +75,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cosa descrive meglio ciò che provi?"
+            android:text="@string/mood_activity_2"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -92,7 +91,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cosa sta avendo un maggiore impatto?"
+            android:text="@string/mood_activity_3"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -108,7 +107,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Aggiungi delle note."
+            android:text="@string/mood_activity_4"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -116,10 +115,9 @@
         <EditText
             android:id="@+id/noteEditText"
             android:layout_width="match_parent"
-            android:layout_height="111dp"
+            android:layout_height="75dp"
             android:allowUndo="true"
-            android:inputType="text"
-            android:lines="3" />
+            android:inputType="text" />
 
         <Space
             android:layout_width="match_parent"
@@ -130,7 +128,7 @@
             android:id="@+id/saveBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Annota"
+            android:text="@string/note_button"
             android:layout_marginTop="16dp"/>
     </LinearLayout>
 </ScrollView>

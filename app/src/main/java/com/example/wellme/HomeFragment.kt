@@ -8,33 +8,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import com.example.wellme.utils.ActivityData
 
 class HomeFragment : Fragment() {
-
-    private val activities =
-        arrayOf("Walking", "Running", "Weightlifting", "Yoga", "Basketball", "Soccer",
-            "Tennis", "Table Tennis", "Boxing", "Golf")
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Infliamo il layout del Fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Gestiamo i pulsanti
-        val btnStart = view.findViewById<Button>(R.id.startActivity_button)
-        btnStart.setOnClickListener {
+        // Start Activity and Note buttons
+        val btnStartActivity = view.findViewById<Button>(R.id.startActivity_button)
+        btnStartActivity.setOnClickListener {
             showActivityDialog()
         }
-
-        // Sezione: Stato d'animo
-        val btnAnnota = view.findViewById<Button>(R.id.btnAnnota)
-        btnAnnota.setOnClickListener {
+        val btnStartNote = view.findViewById<Button>(R.id.startNote_button)
+        btnStartNote.setOnClickListener {
             val intent = Intent(activity, MoodActivity::class.java)
             startActivity(intent)
         }
@@ -43,13 +36,13 @@ class HomeFragment : Fragment() {
     private fun showActivityDialog() {
         AlertDialog.Builder(requireContext())
             .setTitle(R.string.choose_activity_menu_title)
-            .setItems(activities) { _, which ->
-                val selectedActivity = activities[which]
+            .setItems(ActivityData.types) { _, which ->
+                val selectedActivity = ActivityData.types[which]
                 val intent = Intent(activity, FocusActivity::class.java)
                 intent.putExtra("activityType", selectedActivity)
                 startActivity(intent)
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel_button), null)
             .show()
     }
 }

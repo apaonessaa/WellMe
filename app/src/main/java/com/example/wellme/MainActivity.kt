@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -35,19 +34,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // DB reference
         storage = WellMeDatabase.getDatabase(this)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Caricare il primo fragment all'avvio
+        // Save the first fragment
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, HomeFragment())
                 .commit()
         }
 
-        // Gestire il click sui pulsanti della Bottom Navigation
+        // Manage the fragments
         bottomNavigationView.setOnItemSelectedListener { item ->
             val selectedFragment = when (item.itemId) {
                 R.id.nav_home -> HomeFragment()
@@ -63,96 +61,115 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        // Controlla i permessi e ottieni la posizione
-        checkLocationPermission()
+        // context aware to suggest activities to perform
+        suggestActivities()
     }
 
-    private fun checkLocationPermission() {
+    private fun suggestActivities() {
+        // Check or Request location permission
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode
             )
-        } else {
-            getLocation()
         }
+        getLocation()
     }
 
+    // Location permission granted or access denied
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == locationPermissionCode) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, getString(R.string.localization_access_granted), Toast.LENGTH_SHORT).show()
-                getLocation()
+                Toast
+                    .makeText(
+                        this,
+                        getString(R.string.localization_access_granted),
+                        Toast.LENGTH_SHORT)
+                    .show()
             } else {
-                Toast.makeText(this, getString(R.string.localization_access_denied), Toast.LENGTH_SHORT).show()
+                Toast
+                    .makeText(
+                        this,
+                        getString(R.string.localization_access_denied),
+                        Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
 
+    // Get location information
     private fun getLocation() {
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
-        // Usa GPS se disponibile, altrimenti Network
+        // GPS or Network
         val provider = when {
-            locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) -> LocationManager.GPS_PROVIDER
-            locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) -> LocationManager.NETWORK_PROVIDER
+            locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                -> LocationManager.GPS_PROVIDER
+            locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                -> LocationManager.NETWORK_PROVIDER
             else -> {
-                Toast.makeText(this, getString(R.string.localization_disabled), Toast.LENGTH_SHORT).show()
+                Toast
+                    .makeText(
+                        this,
+                        getString(R.string.localization_disabled),
+                        Toast.LENGTH_SHORT)
+                    .show()
                 return
             }
         }
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat
+                .checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED
         ) {
-            locationManager.getCurrentLocation(provider, null, mainExecutor) { loc: Location? ->
-                if (loc != null) {
-                    longitude = loc.longitude
-                    latitude = loc.latitude
-                    Log.d("MainActivity", "Coordinate ottenute: <$longitude, $latitude>")
-
-                    // Trigger get by location
-                    suggestActivity()
-                }
+            locationManager
+                .getCurrentLocation(provider, null, mainExecutor) { loc: Location? ->
+                    loc?.let {
+                        longitude = loc.longitude
+                        latitude = loc.latitude
+                        //Log.d("MainActivity", "Current Location: <$longitude, $latitude>")
+                        activityDetector()
+                    }
             }
         }
     }
 
     private fun showActivityDialog(activities: List<String>) {
         if (activities.isEmpty()) return
-
         AlertDialog.Builder(this)
-            .setTitle("Attività suggerite 📍")
+            .setTitle(getString(R.string.context_aware_suggested_activities))
             .setItems(activities.toTypedArray()) { _, which ->
-                val selectedActivity = activities[which]
-                val intent = Intent(this@MainActivity, FocusActivity::class.java).apply {
-                    putExtra("activityType", selectedActivity)
-                }
+                // Define listener
+                val intent =
+                    Intent(this@MainActivity, FocusActivity::class.java).apply {
+                        putExtra("activityType", activities[which])
+                    }
                 startActivity(intent)
             }
-            .setNegativeButton("Annulla", null)
+            .setNegativeButton(getString(R.string.cancel_button), null)
             .show()
     }
 
-    private fun suggestActivity() {
+    private fun activityDetector() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val currentDay = TimeData.getDayOfTheWeek()
+            val weekday = TimeData.getDayOfTheWeek()
             if (latitude != null && longitude != null) {
-                val activities =
-                    storage.activityStatDao().getSuggestion(longitude!!, latitude!!, accuracy, currentDay)
+                // Log.d(
+                //    "MainActivity",
+                //    "Start Activity Detection by Location & Weekday: <$longitude, $latitude>, $weekday")
 
-                Log.d("MainActivity", "Attività trovate: $activities")
-
-                if (activities.isNotEmpty()) {
-                    val activityNames = activities.map { it }
-                    withContext(Dispatchers.Main) {
-                        showActivityDialog(activityNames)
+                storage.activityStatDao()
+                    .getSuggestion(longitude!!, latitude!!, accuracy, weekday)
+                    .apply {
+                        withContext(Dispatchers.Main) {
+                            showActivityDialog(this@apply)
+                        }
                     }
-                }
             }
         }
     }

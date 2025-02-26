@@ -1,7 +1,6 @@
 package com.example.wellme;
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.SeekBar
@@ -64,15 +63,8 @@ class MoodActivity : AppCompatActivity() {
         val save = findViewById<Button>(R.id.saveBtn)
 
         // Time selection
-        today.text=
-            StringBuilder()
-                .append("Describe today.")
-                .toString()
-
-        now.text=
-            StringBuilder()
-                .append("Describe this moment.")
-                .toString()
+        today.text=getString(R.string.describe_today)
+        now.text=getString(R.string.describe_now)
 
         timeGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
@@ -80,18 +72,14 @@ class MoodActivity : AppCompatActivity() {
                     R.id.todayTime -> {
                         dateSelected = TimeData.getCurrentDate()
                         hourSelected = null
-                        today.text=
-                            StringBuilder()
-                                .append("Describe today.")
-                                .toString()
+                        now.text=getString(R.string.describe_now)
                     }
                     R.id.nowTime -> {
                         dateSelected = TimeData.getCurrentDate()
                         hourSelected = TimeData.getCurrentTime()
+                        val meridium = TimeData.getHourMeridium(hourSelected!!)
                         now.text=
-                            StringBuilder()
-                                .append("Describe this moment $hourSelected AM/PM") //TODO
-                                .toString()
+                            getString(R.string.describe_now) + " $hourSelected $meridium"
                     }
                 }
             }
@@ -128,17 +116,25 @@ class MoodActivity : AppCompatActivity() {
                             note = noteEditText.getText().toString()
                         )
                     )
-                    val allMoods = storage.moodStatDao().getAll()
-                    Log.d("MoodActivity", "Saved Mood Entries: $allMoods")
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            this@MoodActivity,
+                            getString(R.string.saved_mood),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        // Back to Home
+                        finish()
+                    }
+                    //Log.d("Successful@MoodActivity", "Saved Mood Entry.")
                 } else {
                     withContext(Dispatchers.Main) {
                         Toast.makeText(
                             this@MoodActivity,
-                            "È necessario scegliere una data",
+                            getString(R.string.error_no_date),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                    Log.d("Error@MoodActivity", "Saving Mood Entries, but the date is $dateSelected")
+                    //Log.d("Error@MoodActivity", "Saving Mood Entry, but the date is $dateSelected")
                 }
             }
         }

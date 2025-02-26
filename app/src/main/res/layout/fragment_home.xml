@@ -17,13 +17,13 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Apri Focus Activity"/>
+            android:text="@string/home_fragment_1"/>
 
         <Button
             android:id="@+id/startActivity_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Avvia"/>
+            android:text="@string/start_button"/>
     </LinearLayout>
 
     <LinearLayout
@@ -38,13 +38,13 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Stato d'animo"/>
+            android:text="@string/home_fragment_2"/>
 
         <Button
-            android:id="@+id/btnAnnota"
+            android:id="@+id/startNote_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Annota"/>
+            android:text="@string/note_button"/>
     </LinearLayout>
 
 </LinearLayout>
