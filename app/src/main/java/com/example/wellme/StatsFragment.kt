@@ -1,3 +1,5 @@
+package com.example.wellme
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -5,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wellme.R
 import com.example.wellme.storage.adapter.ActivityAdapter
 import com.example.wellme.storage.adapter.MoodAdapter
 import com.example.wellme.storage.viewmodel.ActivityViewModel
 import com.example.wellme.storage.viewmodel.MoodViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.wellme.storage.entities.ActivityStat
+import com.example.wellme.storage.entities.MoodStat
 
 class StatsFragment : Fragment() {
     private val tag = "StatsFragment"
@@ -37,7 +40,7 @@ class StatsFragment : Fragment() {
         recyclerView1.adapter = exerciseAdapter
         recyclerView2.adapter = emotionAdapter
         recyclerView1.layoutManager = StaggeredGridLayoutManager(2, 1)
-        recyclerView2.layoutManager = StaggeredGridLayoutManager(1, 1)
+        recyclerView2.layoutManager = StaggeredGridLayoutManager(2, 1)
 
         exerciseViewModel = ViewModelProvider(this)[ActivityViewModel::class.java]
         emotionViewModel = ViewModelProvider(this)[MoodViewModel::class.java]

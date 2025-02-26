@@ -25,7 +25,7 @@ class MoodAdapter : RecyclerView.Adapter<MoodAdapter.EmotionViewHolder>() {
 
     override fun onBindViewHolder(holder: EmotionViewHolder, position: Int) {
         val currentEmotion = emotionList[position]
-        holder.moodName.text = "${currentEmotion.id} ${currentEmotion.mood}"
+        holder.moodName.text = currentEmotion.id.toString()+". "+currentEmotion.mood
         holder.moodName.setOnClickListener {
             val intent = Intent(holder.itemView.context, ViewItemActivity::class.java).apply {
                 putExtra("ID", currentEmotion.id)
@@ -34,6 +34,8 @@ class MoodAdapter : RecyclerView.Adapter<MoodAdapter.EmotionViewHolder>() {
                 putExtra("Mood", currentEmotion.mood)
                 putExtra("Detail", currentEmotion.detail)
                 putExtra("Note", currentEmotion.note)
+                putExtra("Cause", currentEmotion.cause)
+
                 putExtra("Dato", "Emozione")
             }
             holder.itemView.context.startActivity(intent)

@@ -8,6 +8,7 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.lifecycleScope
+import com.example.wellme.storage.WellMeDatabase
+import com.example.wellme.storage.entities.ActivityStat
+import com.example.wellme.utils.TimeData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DataFragment : Fragment(), SensorEventListener {
 
@@ -24,12 +31,15 @@ class DataFragment : Fragment(), SensorEventListener {
     private lateinit var cardDistance: CardView
     private lateinit var cardSteps: CardView
     private var activityType: String? = null
+    private var latitude: Double? = null
+    private var longitude: Double? = null
     private var elapsedTime = 0
     private var stepsTaken = 0
     private var isRunning = false
     private var permStepsGranted = false
     private lateinit var sensorManager: SensorManager
     private var stepSensor: Sensor? = null
+    private lateinit var storage: WellMeDatabase
 
     private val handler = Handler(Looper.getMainLooper())
     private val updateRunnable = object: Runnable {
@@ -53,6 +63,7 @@ class DataFragment : Fragment(), SensorEventListener {
         if(trackingSteps()) {
             setupSensor()
         }
+        storage = WellMeDatabase.getDatabase(requireContext())
         return view
     }
 
@@ -97,7 +108,7 @@ class DataFragment : Fragment(), SensorEventListener {
 
     private fun setupUI() {
         when(activityType) {
-            "running", "walking" -> {
+            "Running", "Walking" -> {
                 cardDistance.visibility = View.VISIBLE
                 cardSteps.visibility = View.VISIBLE
             }
@@ -133,6 +144,39 @@ class DataFragment : Fragment(), SensorEventListener {
 
     fun stopTracking() {
         isRunning = false
+        val tempElapsedTime = elapsedTime
+        val tempStepsTaken = stepsTaken
+        lifecycleScope.launch(Dispatchers.IO) {
+            if(trackingSteps()) {
+                storage.activityStatDao().insertAll(
+                    ActivityStat(
+                        type = activityType!!,
+                        date = TimeData.getCurrentDate(),
+                        duration = tempElapsedTime,
+                        distance = (tempStepsTaken * 0.75) / 1000,
+                        steps = tempStepsTaken,
+                        day = TimeData.getDayOfTheWeek(),
+                        latitude = latitude,
+                        longitude = longitude
+                    )
+                )
+            } else {
+                storage.activityStatDao().insertAll(
+                    ActivityStat(
+                        type = activityType!!,
+                        date = TimeData.getCurrentDate(),
+                        duration = tempElapsedTime,
+                        distance = null,
+                        steps = null,
+                        day = TimeData.getDayOfTheWeek(),
+                        latitude = latitude,
+                        longitude = longitude
+                    )
+                )
+            }
+            val allActivities = storage.activityStatDao().getAll()
+            Log.d("DataFragment", "Saved Activity Entries: $allActivities")
+        }
         elapsedTime = 0
         stepsTaken = 0
         updateUI()
@@ -140,6 +184,14 @@ class DataFragment : Fragment(), SensorEventListener {
 
     fun trackSteps(enable: Boolean) {
         permStepsGranted = enable
+    }
+
+    fun setLatitude(lat: Double) {
+        latitude = lat
+    }
+
+    fun setLongitude(long: Double) {
+        longitude = long
     }
 
     fun isRunning(): Boolean {
@@ -160,6 +212,6 @@ class DataFragment : Fragment(), SensorEventListener {
     }
 
     private fun trackingSteps(): Boolean {
-        return (activityType == "running" || activityType == "walking") && permStepsGranted
+        return (activityType == "Running" || activityType == "Walking") && permStepsGranted
     }
 }

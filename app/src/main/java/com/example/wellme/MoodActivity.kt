@@ -3,6 +3,7 @@ package com.example.wellme;
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
@@ -59,6 +60,7 @@ class MoodActivity : AppCompatActivity() {
         val seekLabel = findViewById<TextView>(R.id.seekLabel)
         val detailsChipGroup = findViewById<ChipGroup>(R.id.detailGroup)
         val causesChipGroup = findViewById<ChipGroup>(R.id.causesGroup)
+        val noteEditText = findViewById<EditText>(R.id.noteEditText)
         val save = findViewById<Button>(R.id.saveBtn)
 
         // Time selection
@@ -88,8 +90,8 @@ class MoodActivity : AppCompatActivity() {
                         hourSelected = TimeData.getCurrentTime()
                         now.text=
                             StringBuilder()
-                                .append("Describe this moment.\n")
-                                .append(hourSelected).toString()
+                                .append("Describe this moment $hourSelected AM/PM") //TODO
+                                .toString()
                     }
                 }
             }
@@ -123,7 +125,7 @@ class MoodActivity : AppCompatActivity() {
                             mood = stateSelected,
                             detail = detailsSelected.toString(),
                             cause = causesSelected.toString(),
-                            note = "note"
+                            note = noteEditText.getText().toString()
                         )
                     )
                     val allMoods = storage.moodStatDao().getAll()
@@ -171,9 +173,8 @@ class MoodActivity : AppCompatActivity() {
                     true -> {
                         selected.add(detail)
                         chip.setChipBackgroundColorResource(android.R.color.white)
-                        chip.setChipStrokeColorResource(android.R.color.holo_orange_dark)
+                        chip.setChipStrokeColorResource(android.R.color.holo_blue_dark)
                     }
-
                     else -> {
                         selected.remove(detail)
                         chip.setChipBackgroundColorResource(android.R.color.darker_gray)

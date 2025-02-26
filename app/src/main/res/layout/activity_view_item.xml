@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/material_on_surface_emphasis_high_type"
     android:backgroundTint="@color/material_dynamic_neutral10"
     tools:context=".ViewItemActivity">
 
@@ -12,7 +13,7 @@
         android:id="@+id/textView4"
         android:layout_width="269dp"
         android:layout_height="559dp"
-        android:background="#00BCD4"
+        android:background="@color/md_theme_secondaryFixedDim"
         android:text="CIAODSA"
         android:textSize="20sp"
         android:textStyle="bold"

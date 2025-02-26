@@ -24,6 +24,6 @@ data class ActivityStat (
     @ColumnInfo(name = "distance")  val distance:Double?,
     @ColumnInfo(name = "steps")     val steps:Int?,
     @ColumnInfo(name = "day")       val day:Int,
-    @ColumnInfo(name = "latitude")  val latitude:Double,
-    @ColumnInfo(name = "longitude") val longitude:Double
+    @ColumnInfo(name = "latitude")  val latitude:Double?,
+    @ColumnInfo(name = "longitude") val longitude:Double?
 )

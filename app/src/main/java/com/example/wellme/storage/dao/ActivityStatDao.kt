@@ -19,4 +19,14 @@ interface ActivityStatDao {
 
     @Insert
     suspend fun insertAll(vararg stats: ActivityStat)
+
+    @Query("""
+        SELECT DISTINCT type FROM activity_stat 
+        WHERE day =:day AND
+            ( 
+                (longitude-:longitude) * (longitude-:longitude) + 
+                (latitude-:latitude) * (latitude-:latitude) < :accuracy 
+            )
+    """ )
+    fun getSuggestion(longitude: Double, latitude: Double, accuracy: Double, day: Int): List<String>
 }

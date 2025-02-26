@@ -16,13 +16,12 @@ class FocusActivity : AppCompatActivity() {
     private val locationPermissionCode = 2
     private lateinit var dataFragment: DataFragment
     private lateinit var locationManager: LocationManager
-    private var location: Location? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_focus)
 
-        val activityType = intent.getStringExtra("activityType") ?: "running"
+        val activityType = intent.getStringExtra("activityType") ?: "Running"
 
         if (savedInstanceState == null) {
             dataFragment = DataFragment().apply {
@@ -31,7 +30,7 @@ class FocusActivity : AppCompatActivity() {
                 }
             }
 
-            if (activityType == "running" || activityType == "walking") {
+            if (activityType == "Running" || activityType == "Walking") {
                 val stepsPermission = ContextCompat.checkSelfPermission(
                     this, Manifest.permission.ACTIVITY_RECOGNITION
                 );
@@ -80,8 +79,8 @@ class FocusActivity : AppCompatActivity() {
                 LocationManager.FUSED_PROVIDER, null, mainExecutor
             ) { loc: Location? ->
                 if (loc != null) {
-                    location = loc
-                    Toast.makeText(this, location.toString(), Toast.LENGTH_SHORT).show()
+                    dataFragment.setLatitude(loc.latitude)
+                    dataFragment.setLongitude(loc.longitude)
                 }
             }
         }

@@ -7,8 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 
 class HomeFragment : Fragment() {
+
+    private val activities =
+        arrayOf("Walking", "Running", "Weightlifting", "Yoga", "Basketball", "Soccer",
+            "Tennis", "Table Tennis", "Boxing", "Golf")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,9 +29,7 @@ class HomeFragment : Fragment() {
         // Gestiamo i pulsanti
         val btnStart = view.findViewById<Button>(R.id.startActivity_button)
         btnStart.setOnClickListener {
-            val intent = Intent(activity, FocusActivity::class.java)
-            intent.putExtra("activityType", "walking")
-            startActivity(intent)
+            showActivityDialog()
         }
 
         // Sezione: Stato d'animo
@@ -34,5 +38,18 @@ class HomeFragment : Fragment() {
             val intent = Intent(activity, MoodActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun showActivityDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.choose_activity_menu_title)
+            .setItems(activities) { _, which ->
+                val selectedActivity = activities[which]
+                val intent = Intent(activity, FocusActivity::class.java)
+                intent.putExtra("activityType", selectedActivity)
+                startActivity(intent)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 }

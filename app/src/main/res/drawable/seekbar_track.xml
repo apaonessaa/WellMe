@@ -3,13 +3,13 @@
     <item android:id="@android:id/background">
         <shape android:shape="rectangle">
             <corners android:radius="20dp"/>
-            <solid android:color="@color/material_on_background_disabled"/>
+            <solid android:color="@color/material_on_surface_disabled"/>
         </shape>
     </item>
     <item android:id="@android:id/progress">
         <shape android:shape="rectangle">
             <corners android:radius="20dp"/>
-            <solid android:color="@color/material_dynamic_neutral0"/>
+            <solid android:color="@color/material_on_background_disabled"/>
         </shape>
     </item>
 </layer-list>

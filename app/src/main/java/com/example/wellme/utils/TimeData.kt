@@ -1,6 +1,7 @@
 package com.example.wellme.utils
 
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.Date
 import java.util.Locale
 
@@ -11,5 +12,8 @@ object TimeData {
 
     fun getCurrentDate(): String {
         return SimpleDateFormat("dd/MM", Locale.getDefault()).format(Date())
+    }
+    fun getDayOfTheWeek(): Int {
+        return LocalDate.now().dayOfWeek.value
     }
 }

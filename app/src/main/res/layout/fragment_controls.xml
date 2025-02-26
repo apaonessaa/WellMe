@@ -11,25 +11,20 @@
 
     <Button
         android:id="@+id/buttonStartPause"
-        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/start_button"
-        android:textColor="@android:color/darker_gray"
         android:padding="12dp"
         android:layout_marginEnd="16dp"
-        android:elevation="4dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        tools:ignore="ButtonStyle" />
 
     <Button
         android:id="@+id/buttonStop"
-        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/stop_button"
-        android:textColor="@android:color/darker_gray"
         android:padding="12dp"
-        android:elevation="4dp"
-        android:layout_weight="1" />
-
+        android:layout_weight="1"
+        tools:ignore="ButtonStyle" />
 </LinearLayout>

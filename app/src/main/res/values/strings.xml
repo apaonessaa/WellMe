@@ -18,6 +18,6 @@
     <string name="localization_access_denied">Localization Access Denied</string>
     <string name="sensor_not_available">Sensor Not Available</string>
     <string name="localization_disabled">Localization Disabled</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="choose_activity_menu_title">Choose an Activity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
