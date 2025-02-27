@@ -109,7 +109,7 @@ class DataFragment : Fragment(), SensorEventListener {
 
     private fun setupUI() {
         when(activityType) {
-            "Running", "Walking" -> {
+            "Running 🏃🏻‍♂️", "Walking 🚶🏻‍♂️" -> {
                 cardDistance.visibility = View.VISIBLE
                 cardSteps.visibility = View.VISIBLE
             }
@@ -213,6 +213,6 @@ class DataFragment : Fragment(), SensorEventListener {
     }
 
     private fun trackingSteps(): Boolean {
-        return (activityType == "Running" || activityType == "Walking") && permStepsGranted
+        return (activityType == "Running 🏃🏻‍♂️" || activityType == "Walking 🚶🏻‍♂️") && permStepsGranted
     }
 }

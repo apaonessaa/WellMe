@@ -23,7 +23,7 @@ class FocusActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_focus)
 
-        val activityType = intent.getStringExtra("activityType") ?: "Running"
+        val activityType = intent.getStringExtra("activityType") ?: "Running 🏃🏻‍♂️"
 
         if (savedInstanceState == null) {
             dataFragment = DataFragment().apply {
@@ -32,7 +32,7 @@ class FocusActivity : AppCompatActivity() {
                 }
             }
 
-            if (activityType == "Running" || activityType == "Walking") {
+            if (activityType == "Running 🏃🏻‍♂️" || activityType == "Walking 🚶🏻‍♂️") {
                 val stepsPermission = ContextCompat.checkSelfPermission(
                     this, Manifest.permission.ACTIVITY_RECOGNITION
                 );

@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Manage the fragments
+        bottomNavigationView.selectedItemId = R.id.nav_home
         bottomNavigationView.setOnItemSelectedListener { item ->
             val selectedFragment = when (item.itemId) {
                 R.id.nav_home -> HomeFragment()
