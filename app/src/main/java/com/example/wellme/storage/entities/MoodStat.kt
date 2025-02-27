@@ -17,6 +17,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "mood_stat")
 data class MoodStat (
     @PrimaryKey(autoGenerate = true)    val id: Int = 0,
+    @ColumnInfo(name = "weekday")   val weekday: Int,
     @ColumnInfo(name = "date")      val date: String,
     @ColumnInfo(name = "hour")      val hour: String?,
     @ColumnInfo(name = "mood")      val mood:String,

@@ -16,7 +16,6 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
 import com.example.wellme.utils.MoodData
 import com.example.wellme.utils.TimeData
 import kotlinx.coroutines.withContext
@@ -106,8 +105,10 @@ class MoodActivity : AppCompatActivity() {
         save.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 if (dateSelected!=null) {
+                    val currentWeekDay = TimeData.getDayOfTheWeek()
                     storage.moodStatDao().insertAll(
                         MoodStat(
+                            weekday = currentWeekDay,
                             date = dateSelected!!,
                             hour = hourSelected,
                             mood = stateSelected,

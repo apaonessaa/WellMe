@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -43,13 +44,15 @@ class MainActivity : AppCompatActivity() {
 
         // Save the first fragment
         if (savedInstanceState == null) {
+            // Set home fragment
+            bottomNavigationView.selectedItemId = R.id.nav_home
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, HomeFragment())
                 .commit()
         }
 
         // Manage the fragments
-        bottomNavigationView.selectedItemId = R.id.nav_home
+        bottomNavigationView.menu.findItem(R.id.nav_home).isChecked = true
         bottomNavigationView.setOnItemSelectedListener { item ->
             val selectedFragment = when (item.itemId) {
                 R.id.nav_home -> HomeFragment()
@@ -65,6 +68,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        Log.d("MainActivity","Location: <$longitude, $latitude>")
+
         // context aware to suggest activities to perform
         if (latitude==null && longitude==null)
             suggestActivities()
@@ -77,7 +82,8 @@ class MainActivity : AppCompatActivity() {
         ) {
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                locationPermissionCode
             )
         }
         getLocation()
@@ -137,7 +143,7 @@ class MainActivity : AppCompatActivity() {
                     loc?.let {
                         longitude = loc.longitude
                         latitude = loc.latitude
-                        //Log.d("MainActivity", "Current Location: <$longitude, $latitude>")
+                        Log.d("MainActivity", "Current Location: <$longitude, $latitude>")
                         activityDetector()
                     }
             }

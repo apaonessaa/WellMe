@@ -7,6 +7,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.wellme.fragments.ControlsFragment
@@ -83,6 +84,7 @@ class FocusActivity : AppCompatActivity() {
                 if (loc != null) {
                     dataFragment.setLatitude(loc.latitude)
                     dataFragment.setLongitude(loc.longitude)
+                    Log.d("FocusActivity","Focus Location: <${loc.longitude}, ${loc.latitude}>")
                 }
             }
         }
