@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.wellme.fragments.HomeFragment
+import com.example.wellme.fragments.ProfileFragment
+import com.example.wellme.fragments.StatsFragment
 import com.example.wellme.storage.WellMeDatabase
 import com.example.wellme.utils.TimeData
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -50,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             val selectedFragment = when (item.itemId) {
                 R.id.nav_home -> HomeFragment()
                 R.id.nav_stats -> StatsFragment()
-                // R.id.nav_profile -> ProfileFragment()
+                R.id.nav_profile -> ProfileFragment()
                 else -> null
             }
             selectedFragment?.let {
@@ -62,7 +65,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // context aware to suggest activities to perform
-        suggestActivities()
+        if (latitude==null && longitude==null)
+            suggestActivities()
     }
 
     private fun suggestActivities() {
@@ -139,6 +143,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Choose suggestions by alert dialog
     private fun showActivityDialog(activities: List<String>) {
         if (activities.isEmpty()) return
         AlertDialog.Builder(this)
@@ -155,6 +160,7 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    // Detects the presence of some activity to suggest
     private fun activityDetector() {
         lifecycleScope.launch(Dispatchers.IO) {
             val weekday = TimeData.getDayOfTheWeek()
@@ -162,7 +168,6 @@ class MainActivity : AppCompatActivity() {
                 // Log.d(
                 //    "MainActivity",
                 //    "Start Activity Detection by Location & Weekday: <$longitude, $latitude>, $weekday")
-
                 storage.activityStatDao()
                     .getSuggestion(longitude!!, latitude!!, accuracy, weekday)
                     .apply {
@@ -170,7 +175,11 @@ class MainActivity : AppCompatActivity() {
                             showActivityDialog(this@apply)
                         }
                     }
-            }
+            } //else {
+                // Log.d(
+                //    "Error@MainActivity",
+                //    "Start Activity Detection by wrong Location & Weekday: <$longitude, $latitude>, $weekday")
+            //}
         }
     }
 }

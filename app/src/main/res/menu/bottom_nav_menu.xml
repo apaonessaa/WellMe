@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_stats"
-        android:icon="@android:drawable/ic_menu_agenda"
-        android:title="Stats" />
+        android:icon="@drawable/query_stats_24dp_2854c5_fill0_wght400_grad0_opsz24"
+        android:title="@string/bottom_nav_menu_stats" />
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@android:drawable/ic_menu_view"
-        android:title="Home" />
+        android:icon="@drawable/home_24dp_2854c5_fill0_wght400_grad0_opsz24"
+        android:title="@string/bottom_nav_menu_home" />
 
     <item
         android:id="@+id/nav_profile"
-        android:icon="@android:drawable/ic_menu_myplaces"
-        android:title="Profile" />
+        android:icon="@drawable/person_24dp_2854c5_fill0_wght400_grad0_opsz24"
+        android:title="@string/bottom_nav_menu_profile" />
 </menu>

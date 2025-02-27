@@ -9,6 +9,8 @@ import android.location.Location
 import android.location.LocationManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.example.wellme.fragments.ControlsFragment
+import com.example.wellme.fragments.DataFragment
 
 class FocusActivity : AppCompatActivity() {
 

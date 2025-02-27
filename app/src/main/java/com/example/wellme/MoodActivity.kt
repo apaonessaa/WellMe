@@ -160,8 +160,8 @@ class MoodActivity : AppCompatActivity() {
                 checkedIcon = null
             }
             // Default Style
-            chip.setChipBackgroundColorResource(android.R.color.darker_gray)
-            chip.setChipStrokeColorResource(android.R.color.darker_gray)
+            chip.setChipBackgroundColorResource(R.color.md_theme_surfaceDim_highContrast)
+            chip.setChipStrokeColorResource(R.color.md_theme_inverseSurface_mediumContrast)
             chip.chipStrokeWidth = 4f
             // On Change, update selected list and style
             chip.setOnCheckedChangeListener { _, isChecked ->
@@ -169,12 +169,12 @@ class MoodActivity : AppCompatActivity() {
                     true -> {
                         selected.add(detail)
                         chip.setChipBackgroundColorResource(android.R.color.white)
-                        chip.setChipStrokeColorResource(android.R.color.holo_blue_dark)
+                        chip.setChipStrokeColorResource(R.color.md_theme_onPrimaryContainer)
                     }
                     else -> {
                         selected.remove(detail)
-                        chip.setChipBackgroundColorResource(android.R.color.darker_gray)
-                        chip.setChipStrokeColorResource(android.R.color.darker_gray)
+                        chip.setChipBackgroundColorResource(R.color.md_theme_surfaceDim_highContrast)
+                        chip.setChipStrokeColorResource(R.color.md_theme_inverseSurface_mediumContrast)
                     }
                 }
             }

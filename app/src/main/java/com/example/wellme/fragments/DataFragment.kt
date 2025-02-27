@@ -1,4 +1,4 @@
-package com.example.wellme
+package com.example.wellme.fragments
 
 import android.content.Context
 import android.hardware.Sensor
@@ -17,6 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
+import com.example.wellme.R
 import com.example.wellme.storage.WellMeDatabase
 import com.example.wellme.storage.entities.ActivityStat
 import com.example.wellme.utils.TimeData

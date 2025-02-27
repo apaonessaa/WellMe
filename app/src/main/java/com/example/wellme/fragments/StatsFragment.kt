@@ -1,4 +1,4 @@
-package com.example.wellme
+package com.example.wellme.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -13,8 +13,7 @@ import com.example.wellme.storage.viewmodel.ActivityViewModel
 import com.example.wellme.storage.viewmodel.MoodViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.wellme.storage.entities.ActivityStat
-import com.example.wellme.storage.entities.MoodStat
+import com.example.wellme.R
 
 class StatsFragment : Fragment() {
     private val tag = "StatsFragment"

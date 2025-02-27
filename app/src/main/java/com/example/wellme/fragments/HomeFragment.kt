@@ -1,4 +1,4 @@
-package com.example.wellme
+package com.example.wellme.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import com.example.wellme.FocusActivity
+import com.example.wellme.MoodActivity
+import com.example.wellme.R
 import com.example.wellme.utils.ActivityData
 
 class HomeFragment : Fragment() {

@@ -35,4 +35,11 @@
 
     <string name="home_fragment_1">Get moving</string>
     <string name="home_fragment_2">Write down your mood</string>
+    <string name="profile_fragment_alert">Coming soon</string>
+    <string name="back_to_home">Back to home</string>
+
+    <string name="bottom_nav_menu_stats">Stats</string>
+    <string name="bottom_nav_menu_home">Home</string>
+    <string name="bottom_nav_menu_profile">Profile</string>
+
 </resources>
