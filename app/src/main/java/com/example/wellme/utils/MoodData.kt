@@ -51,12 +51,12 @@ object MoodData {
     )
 
     val causes = listOf(
-        "Physical Health", "Exercise", "Personal Care", "Hobbies", "Identity",
-        "Spirituality", "Social Life", "Family", "Friendships", "Romantic Relationship",
-        "Love Life", "Responsibilities", "Work", "Education", "Career Growth",
-        "Financial Stability", "Weather", "News & Current Events", "Sleep Quality",
-        "Diet & Nutrition", "Self-Esteem", "Personal Achievements", "Creativity",
-        "Self-Discovery", "Mental Clarity", "Personal Development",
-        "Surrounding Environment", "Nature Exposure", "Technology & Social Media"
+        "💪 Physical Health", "🏃 Exercise", "🛁 Personal Care", "🎨 Hobbies", "🆔 Identity",
+        "🕊️ Spirituality", "🎉 Social Life", "👨‍👩‍👧‍👦 Family", "🫂 Friendships", "💑 Romantic Relationship",
+        "❤️ Love Life", "📋 Responsibilities", "💼 Work", "🎓 Education", "📈 Career Growth",
+        "💰 Financial Stability", "⛅ Weather", "📰 News & Current Events", "😴 Sleep Quality",
+        "🥗 Diet & Nutrition", "🌟 Self-Esteem", "🏆 Personal Achievements", "🎭 Creativity",
+        "🔍 Self-Discovery", "🧘 Mental Clarity", "📚 Personal Development",
+        "🏡 Surrounding Environment", "🌿 Nature Exposure", "📱 Technology & Social Media"
     )
 }
