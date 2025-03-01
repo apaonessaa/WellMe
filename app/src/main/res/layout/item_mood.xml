@@ -15,7 +15,7 @@
         android:background="@android:color/white"
         android:backgroundTint="@android:color/white"
         android:clickable="false"
-        android:text="First Mood"
+        android:text="@string/single_mood_info"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 </LinearLayout>

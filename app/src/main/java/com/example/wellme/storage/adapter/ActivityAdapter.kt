@@ -25,7 +25,7 @@ class ActivityAdapter : RecyclerView.Adapter<ActivityAdapter.ExerciseViewHolder>
 
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
         val currentExercise = exerciseList[position]
-        holder.exerciseName.text = currentExercise.id.toString()+". "+currentExercise.type
+        holder.exerciseName.text = currentExercise.type
         holder.exerciseName.setOnClickListener {
             val intent = Intent(holder.itemView.context, ViewItemActivity::class.java).apply {
                 putExtra("ID", currentExercise.id)

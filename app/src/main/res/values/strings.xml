@@ -12,6 +12,7 @@
     <string name="title_activity_main">WellMe</string>
     <string name="title_activity_focus">FocusActivity</string>
     <string name="title_activity_mood">MoodActivity</string>
+    <string name="title_activity_viewItem">ViewItemActivity</string>
     <string name="steps_access_granted">Steps Access Granted</string>
     <string name="steps_access_denied">Steps Access Denied</string>
     <string name="localization_access_granted">Localization Access Granted</string>
@@ -37,9 +38,31 @@
     <string name="home_fragment_2">Write down your mood</string>
     <string name="profile_fragment_alert">Coming soon</string>
     <string name="back_to_home">Back to home</string>
+    <string name="activity_list">List of all activities</string>
+    <string name="mood_list">List of all moods</string>
+    <string name="stats_fragment_1">Select an item for more info</string>
 
     <string name="bottom_nav_menu_stats">Stats</string>
     <string name="bottom_nav_menu_home">Home</string>
     <string name="bottom_nav_menu_profile">Profile</string>
 
+    <string name="single_activity_info">Activity info:</string>
+    <string name="activity_id">ID:</string>
+    <string name="activity_type">Type:</string>
+    <string name="activity_date">Date:</string>
+    <string name="activity_duration">Duration:</string>
+    <string name="activity_distance">Distance:</string>
+    <string name="activity_steps">Steps:</string>
+    <string name="activity_day">Day:</string>
+    <string name="activity_latitude">Latitude:</string>
+    <string name="activity_longitude">Longitude:</string>
+
+    <string name="single_mood_info">Mood info:</string>
+    <string name="mood_id">ID:</string>
+    <string name="mood_date">Date:</string>
+    <string name="mood_hour">Hour:</string>
+    <string name="mood_kind">Mood:</string>
+    <string name="mood_detail">Detail:</string>
+    <string name="mood_cause">Cause:</string>
+    <string name="mood_note">Note:</string>
 </resources>

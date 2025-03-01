@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FFEB3B"
@@ -15,7 +14,7 @@
         android:background="@android:color/white"
         android:backgroundTint="@android:color/white"
         android:clickable="false"
-        android:text="First Activity"
+        android:text="@string/single_activity_info"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 </LinearLayout>

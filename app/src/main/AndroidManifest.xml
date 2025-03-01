@@ -39,7 +39,7 @@
         <activity
             android:name=".ViewItemActivity"
             android:exported="false"
-            android:label="@string/title_activity_mood"
+            android:label="@string/title_activity_viewItem"
             android:theme="@style/Theme.WellMe">
         </activity>
     </application>

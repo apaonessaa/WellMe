@@ -10,11 +10,11 @@
     tools:context=".ViewItemActivity">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/singleItem"
         android:layout_width="269dp"
         android:layout_height="559dp"
         android:background="@color/md_theme_secondaryFixedDim"
-        android:text="CIAODSA"
+        android:text="@string/title_activity_viewItem"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
