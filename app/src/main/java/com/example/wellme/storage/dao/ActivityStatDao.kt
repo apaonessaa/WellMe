@@ -11,7 +11,7 @@ interface ActivityStatDao {
     @Query("SELECT * FROM activity_stat")
     fun getAll(): List<ActivityStat>
 
-    @Query("SELECT * FROM activity_stat")
+    @Query("SELECT * FROM activity_stat ORDER BY id DESC")
     fun getAllExercises(): LiveData<List<ActivityStat>>
 
     @Query("SELECT * FROM activity_stat WHERE id = :id")

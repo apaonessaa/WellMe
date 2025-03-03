@@ -26,6 +26,10 @@ class FocusActivity : AppCompatActivity() {
 
         val activityType = intent.getStringExtra("activityType") ?: "Running 🏃🏻‍♂️"
 
+        Toast
+            .makeText(this, getString(R.string.focus_on)+" "+activityType, Toast.LENGTH_SHORT)
+            .show()
+
         if (savedInstanceState == null) {
             dataFragment = DataFragment().apply {
                 arguments = Bundle().apply {

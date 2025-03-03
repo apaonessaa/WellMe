@@ -14,7 +14,7 @@ interface MoodStatDao {
     @Insert
     suspend fun insertAll(vararg stats: MoodStat)
 
-    @Query("SELECT * FROM mood_stat")
+    @Query("SELECT * FROM mood_stat ORDER BY id DESC")
     fun getAllEmotions(): LiveData<List<MoodStat>>
 
     @Query("SELECT * FROM mood_stat WHERE id = :id")

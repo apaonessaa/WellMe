@@ -65,4 +65,6 @@
     <string name="mood_detail">Detail:</string>
     <string name="mood_cause">Cause:</string>
     <string name="mood_note">Note:</string>
+
+    <string name="focus_on">Focus on</string>
 </resources>
