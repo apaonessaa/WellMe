@@ -8,8 +8,6 @@ WellMe è un'applicazione mobile progettata per aiutare gli utenti a monitorare,
 - **Monitoraggio benessere mentale**: registrazione dello stato d'animo giornaliero con analisi della correlazione tra attività fisica e benessere emotivo.
 - **Suggerimenti personalizzati**: notifiche e raccomandazioni basate sul contesto e sulle abitudini dell'utente.
 - **Archiviazione dati**: visualizzazione della cronologia delle attività svolte e degli stati d'animo registrati.
-- **Applicazione multilingua**: supporto per diverse lingue selezionabili dall'utente.
-- **Sincronizzazione con il cloud**: salvataggio e recupero dei dati tramite login e sincronizzazione online.
 
 ## Features
 - **Monitoraggio salute fisica**: utilizzo di sensori per rilevare il numero di passi e il tipo di attività svolta (camminata, corsa, ecc.).
@@ -41,10 +39,6 @@ L'applicazione utilizza dati ambientali e sensori per personalizzare i suggerime
 - **Rilevamento posizione**: suggerimenti basati sulla posizione dell'utente.
 - **Rilevamento attività**: monitoraggio automatico tramite accelerometro.
 - **Analisi abitudini settimanali**: suggerimenti basati su attività svolte in giorni specifici.
-
-## Confronto con Applicazioni Simili
-- **Salute iOS**: WellMe offre un monitoraggio più personalizzato rispetto al monitoraggio generico di iOS.
-- **Google Fit**: a differenza di Google Fit, WellMe integra il monitoraggio dello stato d'animo e fornisce suggerimenti personalizzati context-aware.
 
 ## Licenza
 Questo progetto è distribuito sotto licenza MIT. Consulta il file `LICENSE` per maggiori dettagli.
